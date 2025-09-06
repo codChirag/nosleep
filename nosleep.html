@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>No Sleep — Night Mode Landing</title>
+  <meta name="description" content="A modern neon-dark landing page: No Sleep." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🌙</text></svg>">
+  <style>
+    :root{
+      --bg-1:#07070a;
+      --bg-2:#0b0f1a;
+      --fg:#e7e7f0;
+      --muted:#9aa0b4;
+      --accent:#7c5cff;      /* neon violet */
+      --accent-2:#00e5ff;    /* neon cyan */
+      --glass:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+
+    /* Base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(900px 600px at 10% 110%, rgba(0,229,255,.18), transparent 60%),
+        linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    a{color:var(--accent);text-decoration:none}
+    a:hover{opacity:.9}
+
+    /* Animated gradient halo */
+    .halo{
+      position:fixed; inset:-20%;
+      background:conic-gradient(from 0deg,rgba(124,92,255,.15),rgba(0,229,255,.10),transparent 40%);
+      filter:blur(60px) saturate(160%);
+      animation:spin 30s linear infinite;
+      pointer-events:none; z-index:-1;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Header / Nav */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:blur(10px);
+      background:linear-gradient(to bottom, rgba(10,12,20,.6), transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      max-width:1100px; margin:0 auto; padding:14px 20px;
+    }
+    .brand{
+      font-weight:800; letter-spacing:.08em;
+      text-transform:uppercase; display:flex; align-items:center; gap:.6rem;
+    }
+    .dot{width:10px;height:10px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
+      box-shadow:0 0 12px var(--accent);
+    }
+    .nav a.btn{
+      padding:.6rem 1rem; border:1px solid var(--border); border-radius:999px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+    }
+    .nav a.btn:hover{border-color:rgba(255,255,255,.25)}
+
+    /* Hero */
+    .hero{
+      max-width:1100px; margin:56px auto 24px; padding:0 20px 24px;
+      display:grid; gap:28px; align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding:.36rem .75rem; border:1px solid var(--border);
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      border-radius:999px; font-size:.875rem; color:var(--muted);
+    }
+    .title{
+      font-weight:900; line-height:1;
+      font-size: clamp(2.6rem, 8vw, 6rem);
+      letter-spacing:.02em; margin:0;
+      text-shadow:
+        0 0 12px rgba(124,92,255,.25),
+        0 0 30px rgba(0,229,255,.15);
+      position:relative;
+    }
+
+    /* subtle glitch shimmer */
+    .title::after{
+      content:attr(data-text);
+      position:absolute; inset:0; mix-blend-mode:screen;
+      color:var(--accent-2); opacity:.25;
+      clip-path:inset(0 0 55% 0);
+      animation:glitch 3.2s infinite ease-in-out alternate;
+      text-shadow:0 0 22px rgba(0,229,255,.6);
+      pointer-events:none;
+    }
+    @keyframes glitch{
+      0%{transform:translate(0,0)}
+      20%{transform:translate(1px,-1px)}
+      40%{transform:translate(-1px,1px)}
+      60%{transform:translate(1px,0)}
+      80%{transform:translate(-1px,-1px)}
+      100%{transform:translate(0,0)}
+    }
+
+    .subtitle{max-width:60ch; color:var(--muted); font-size:1.1rem}
+
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    .cta{
+      border:none; cursor:pointer; font-weight:700;
+      padding:.9rem 1.2rem; border-radius:12px;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2));
+      color:#05060a; box-shadow:var(--shadow);
+    }
+    .ghost{
+      background:transparent; color:var(--fg); border:1px solid var(--border)
+    }
+
+    /* Sections */
+    section{max-width:1100px; margin:40px auto; padding:0 20px}
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns:repeat(12,1fr);
+    }
+    .card{
+      grid-column:span 12;
+      padding:20px; border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+    }
+    @media(min-width:720px){
+      .card.third{grid-column:span 4}
+      .card.half{grid-column:span 6}
+    }
+
+    .card h3{margin:.2rem 0 0; font-size:1.1rem; letter-spacing:.02em}
+    .meta{font-size:.85rem; color:var(--muted); margin-bottom:.4rem}
+
+    /* Marquee (CSS only) */
+    .marquee{
+      overflow:hidden; border:1px solid var(--border);
+      border-radius:999px; padding:.6rem 0; position:relative;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    }
+    .track{
+      display:flex; gap:28px; width:max-content;
+      animation:scroll 22s linear infinite;
+      will-change:transform; padding-inline:20px;
+      text-transform:uppercase; letter-spacing:.14em; font-weight:700;
+    }
+    .pill{
+      padding:.35rem .75rem; border-radius:999px; border:1px solid var(--border);
+      background:var(--glass)
+    }
+    @keyframes scroll{to{transform:translateX(-50%)}}
+
+    /* Newsletter (no JS) */
+    form{
+      display:grid; gap:10px;
+      grid-template-columns: 1fr auto;
+    }
+    input[type="email"]{
+      width:100%; padding:1rem; border-radius:12px; border:1px solid var(--border);
+      background:rgba(255,255,255,.03); color:var(--fg);
+      outline:none;
+    }
+    input::placeholder{color:#a8aec2}
+    button[type="submit"]{all:unset}
+    .submit{
+      padding:.9rem 1.2rem; border-radius:12px; font-weight:700; cursor:pointer;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2)); color:#05060a;
+    }
+
+    /* Footer */
+    footer{
+      margin-top:56px; border-top:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+    }
+    .foot{
+      max-width:1100px; margin:0 auto; padding:22px 20px;
+      color:var(--muted); font-size:.95rem; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+
+    /* Reduced motion friendly */
+    @media (prefers-reduced-motion: reduce){
+      .halo,.title::after,.track{animation:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="halo" aria-hidden="true"></div>
+
+  <header aria-label="Site header">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand"><span class="dot" aria-hidden="true"></span> NO SLEEP</div>
+      <div class="actions">
+        <a class="btn" href="#lineup">Line-up</a>
+        <a class="btn" href="#tickets">Tickets</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-label="Hero">
+      <span class="eyebrow">Friday • 11:59 PM • Urban Warehouse</span>
+      <h1 class="title" data-text="NO SLEEP">NO SLEEP</h1>
+      <p class="subtitle">
+        A neon-drenched night of bass, breaks, and bliss. Zero curfew, pure energy.
+        Doors at midnight — we go till the city yawns.
+      </p>
+      <div class="cta-row">
+        <a class="cta" id="tickets" href="#">Get Tickets</a>
+        <a class="cta ghost" href="#newsletter">Notify Me</a>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="track">
+          <span class="pill">Techno</span><span class="pill">House</span><span class="pill">Drum &amp; Bass</span>
+          <span class="pill">Live Visuals</span><span class="pill">Neon</span><span class="pill">All Night</span>
+          <span class="pill">Techno</span><span class="pill">House</span><span class="pill">Drum &amp; Bass</span>
+          <span class="pill">Live Visuals</span><span class="pill">Neon</span><span class="pill">All Night</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="lineup" aria-labelledby="lineup-title">
+      <h2 id="lineup-title" class="visually-hidden">Line-up</h2>
+      <div class="grid">
+        <article class="card third">
+          <div class="meta">00:00 — 01:30</div>
+          <h3>DJ Nyx</h3>
+          <p>Shadowy grooves to pull you into the night.</p>
+        </article>
+        <article class="card third">
+          <div class="meta">01:30 — 03:00</div>
+          <h3>Pulse/Phase</h3>
+          <p>Hypnotic techno with glitch-kissed synths.</p>
+        </article>
+        <article class="card third">
+          <div class="meta">03:00 — 05:00</div>
+          <h3>Rhea 303 (Live)</h3>
+          <p>Acid forward set, analog heat, no mercy.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="about-title">
+      <h2 id="about-title" class="visually-hidden">About</h2>
+      <div class="grid">
+        <div class="card half">
+          <div class="meta">Vibe</div>
+          <h3>Neon. Industrial. Safe.</h3>
+          <p>Community-first dance floor. Friendly staff, water on the house, phones down, hearts open.</p>
+        </div>
+        <div class="card half">
+          <div class="meta">Venue</div>
+          <h3>Urban Warehouse</h3>
+          <p>Sound-treated, accessible entry, secure cloak. Metro within 300m. Parking after 10 PM.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="newsletter" aria-labelledby="news-title">
+      <h2 id="news-title" class="visually-hidden">Newsletter</h2>
+      <div class="card">
+        <div class="meta">Stay in the loop</div>
+        <h3>Get drop alerts</h3>
+        <p class="subtitle" style="margin:.4rem 0 1rem">
+          Leave your email — we’ll ping you when the next after-hours drops. No spam, only bangers.
+        </p>
+        <form action="#" method="post" aria-label="Subscribe">
+          <label class="visually-hidden" for="email">Email</label>
+          <input id="email" name="email" type="email" inputmode="email" placeholder="you@nightmail.com" required>
+          <button type="submit" class="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="foot">
+      <span>© <span id="year">2025</span> No Sleep Collective</span>
+      <span>Made with HTML + CSS · <a href="#home">Back to top</a></span>
+    </div>
+  </footer>
+
+  <!-- A11y helpers -->
+  <style>
+    .visually-hidden{
+      position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+  </style>
+  <script>
+    // Optional: set current year without altering layout if JS is disabled.
+    document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
+  </script>
+</body>
+</html>
